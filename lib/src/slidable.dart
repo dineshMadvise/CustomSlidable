@@ -21,7 +21,7 @@ class Slidable extends StatefulWidget {
     Key? key,
     this.groupTag,
     this.enabled = true,
-    this.isAllEdit = false,
+    this.slideRadio = 0.0,
     this.closeOnScroll = true,
     this.startActionPane,
     this.endActionPane,
@@ -37,7 +37,7 @@ class Slidable extends StatefulWidget {
   ///
   /// Defaults to true.
   final bool enabled;
-  final bool isAllEdit;
+  final double slideRadio;
 
   /// Specifies to close this [Slidable] after the closest [Scrollable]'s
   /// position changed.
@@ -138,9 +138,8 @@ class _SlidableState extends State<Slidable>
     super.initState();
     controller = SlidableController(this)
       ..actionPaneType.addListener(handleActionPanelTypeChanged);
-    if(widget.isAllEdit){
-      controller.ratio=-0.35;
-    }
+
+    controller.ratio = widget.slideRadio;
 
     print('CALL INIT =========================');
   }
@@ -222,6 +221,7 @@ class _SlidableState extends State<Slidable>
   }
 
   ActionPane? get startActionPane => widget.startActionPane;
+
   ActionPane? get endActionPane => widget.endActionPane;
 
   Alignment get actionPaneAlignment {

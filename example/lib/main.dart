@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Slidable Example',
       home: HomeScreen(),
     );
@@ -27,7 +27,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isEdit = false;
+  double slideRadio=0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +37,31 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
                 onPressed: () {
                   setState(() {
-                    isEdit = !isEdit;
+                    if(slideRadio==0.0){
+                      slideRadio=-0.35;
+                    }else{
+                      slideRadio=0.0;
+                    }
                   });
                 },
-                icon: Icon(Icons.edit))
+                icon: const Icon(Icons.edit))
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              slideRadio=0.0;
+            });
+          },
         ),
         body: ListView.builder(
           itemCount: 2,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Slidable(
-                  key:  ValueKey(isEdit),
-                  isAllEdit: isEdit,
+                  key:  ValueKey(DateTime.now()),
+                  slideRadio:slideRadio,
                   endActionPane: ActionPane(
                     motion: const ScrollMotion(),
                     children: [
@@ -64,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Container(
                             width: 60,
                             height: 60,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               boxShadow: [
                                 BoxShadow(color: Colors.black, blurRadius: 2)
                               ],
@@ -74,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
 
                             ///DELETE
-                            child: Center(child: Icon(Icons.delete)),
+                            child: const Center(child: Icon(Icons.delete)),
                           ),
                         ),
                       ),
